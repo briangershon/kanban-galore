@@ -1,8 +1,56 @@
 <!doctype html>
 <head>
-  <title></title>
+  <title>Kanban</title>
+  <link rel="stylesheet" href="public/css/h5bp.css">
+  <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
+  
+  <header>Kanban</header>
+
+  <div role="main">
+    <div class="column">
+      <div class="lane-header">Ready</div>
+      <div class="lane" id="ready">
+        <div id="one" class="card">one</div>
+        <div id="two" class="card">two</div>
+        <div id="three" class="card">three</div>
+        <div id="four" class="card">four</div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="lane-header">Doing</div>
+      <div class="lane" id="doing">
+        <div id="A" class="card">A</div>
+        <div id="B" class="card">B</div>
+        <div id="C" class="card">C</div>
+        <div id="D" class="card">D</div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="lane-header">Done</div>
+      <div class="lane" id="done">
+        <div id="mockup" class="card">Create an HTML mockup</div>
+        <div id="drag-drop" class="card">Add jQuery drag and drop</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Drag and drop Kanban cards between columns.</footer>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+      $(".lane").sortable({
+        connectWith: ".lane",
+        update: function(event, ui) {
+          // console.log('update lane_id', $(this).attr('id'), $(this).sortable('toArray').toString());
+        }
+      });
+      $( ".lane" ).disableSelection();
+    });
+  </script>
   <script src="public/javascripts/underscore.js"></script>
   <script src="public/javascripts/backbone.js"></script>
   <script src="public/javascripts/kanban-core.js"></script>
