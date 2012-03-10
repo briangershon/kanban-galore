@@ -6,38 +6,32 @@
 </head>
 <body>
   
-  <header>Kanban</header>
+  <header></header>
 
   <div role="main">
     <div class="column">
       <div class="lane-header">Ready</div>
       <div class="lane" id="ready">
-        <div id="one" class="card">one</div>
-        <div id="two" class="card">two</div>
-        <div id="three" class="card">three</div>
-        <div id="four" class="card">four</div>
       </div>
     </div>
     <div class="column">
       <div class="lane-header">Doing</div>
       <div class="lane" id="doing">
-        <div id="A" class="card">A</div>
-        <div id="B" class="card">B</div>
-        <div id="C" class="card">C</div>
-        <div id="D" class="card">D</div>
       </div>
     </div>
     <div class="column">
       <div class="lane-header">Done</div>
       <div class="lane" id="done">
-        <div id="mockup" class="card">Create an HTML mockup</div>
-        <div id="drag-drop" class="card">Add jQuery drag and drop</div>
       </div>
     </div>
   </div>
 
   <footer>Drag and drop Kanban cards between columns.</footer>
-
+  
+  <script id="card-template" type="text/html">
+    <div id="card-<%= id %>" class="card"><%= title %></div>
+  </script>
+  
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
   <script>
@@ -53,6 +47,9 @@
   </script>
   <script src="public/javascripts/underscore.js"></script>
   <script src="public/javascripts/backbone.js"></script>
+  <script src="public/javascripts/kanban.js"></script>
   <script src="public/javascripts/kanban-core.js"></script>
+  <script src="public/javascripts/kanban-views.js"></script>
+  <script src="public/javascripts/app.js"></script>
 </body>
 </html>

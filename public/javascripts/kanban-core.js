@@ -1,11 +1,11 @@
-var Card = Backbone.Model.extend({
+kanban.Card = Backbone.Model.extend({
   lane: '',
   order: 1,
   title: ''
 });
 
-var Cards = Backbone.Collection.extend({
-  model: Card,
+kanban.Cards = Backbone.Collection.extend({
+  model: kanban.Card,
   comparator: function (card) {
     return card.get('lane') + card.get("order");
   },

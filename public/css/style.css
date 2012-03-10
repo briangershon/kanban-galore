@@ -4,9 +4,8 @@ header {
 }
 
 .column {
-  width: 170px;
+  width: 270px;
   float: left;
-  padding-bottom: 500px;
 }
 
 .ui-sortable-helper {
@@ -41,7 +40,7 @@ header {
 
 .lane .card {
   text-align: center;
-  height: 60px;
+/*  height: 60px;*/
   padding: 10px;
   margin: 5px;
   border: 1px dashed #333;
@@ -49,9 +48,10 @@ header {
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background: #fff; 
+/*  overflow: hidden;*/
 }
 
 footer {
   padding: 10px;
-  clear:both;
+  clear: both;
 }

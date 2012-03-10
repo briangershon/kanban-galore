@@ -1,8 +1,8 @@
-describe('Kanban', function () {
+describe('Kanban Core', function () {
   
-  describe('Card', function () {
+  describe('kanban.Card', function () {
     beforeEach(function () {
-      this.card = new Card({id: 1, order: 1, lane: 'ready', title: 'Card one'});
+      this.card = new kanban.Card({id: 1, order: 1, lane: 'ready', title: 'Card one'});
     });
 
     it('should have a lane field', function () {
@@ -23,9 +23,9 @@ describe('Kanban', function () {
     
   });
   
-  describe('Cards', function () {
+  describe('kanban.Cards', function () {
     beforeEach(function () {
-      this.cards = new Cards([
+      this.cards = new kanban.Cards([
         {id: 1, order: 3, lane: 'ready'},
         {id: 2, order: 2, lane: 'ready'},
         {id: 3, order: 1, lane: 'ready'},
@@ -45,17 +45,17 @@ describe('Kanban', function () {
     });
     
     it('should filter by lane and be in correct order', function () {
-      readyCards = this.cards.inLane('ready');
-      expect(readyCards.length).toEqual(3);
-      expect(readyCards[0].get('id')).toEqual(3);
-      expect(readyCards[1].get('id')).toEqual(2);
-      expect(readyCards[2].get('id')).toEqual(1);
+      var cards = this.cards.inLane('ready');
+      expect(cards.length).toEqual(3);
+      expect(cards[0].get('id')).toEqual(3);
+      expect(cards[1].get('id')).toEqual(2);
+      expect(cards[2].get('id')).toEqual(1);
       
-      doneCards = this.cards.inLane('done');
-      expect(doneCards.length).toEqual(3);
-      expect(doneCards[0].get('id')).toEqual(6);
-      expect(doneCards[1].get('id')).toEqual(5);
-      expect(doneCards[2].get('id')).toEqual(4);
+      cards = this.cards.inLane('done');
+      expect(cards.length).toEqual(3);
+      expect(cards[0].get('id')).toEqual(6);
+      expect(cards[1].get('id')).toEqual(5);
+      expect(cards[2].get('id')).toEqual(4);
     });
 
     it('should update lane with new models reorder', function () {
@@ -63,17 +63,17 @@ describe('Kanban', function () {
       this.cards.updateLane('done', [2,3,4,5,6]);
       this.cards.updateLane('ready', [1]);
 
-      readyCards = this.cards.inLane('ready');
-      expect(readyCards.length).toEqual(1);
-      expect(readyCards[0].get('id')).toEqual(1);
+      var cards = this.cards.inLane('ready');
+      expect(cards.length).toEqual(1);
+      expect(cards[0].get('id')).toEqual(1);
       
-      doneCards = this.cards.inLane('done');
-      expect(doneCards.length).toEqual(5);
-      expect(doneCards[0].get('id')).toEqual(2);
-      expect(doneCards[1].get('id')).toEqual(3);
-      expect(doneCards[2].get('id')).toEqual(4);
-      expect(doneCards[3].get('id')).toEqual(5);
-      expect(doneCards[4].get('id')).toEqual(6);
+      cards = this.cards.inLane('done');
+      expect(cards.length).toEqual(5);
+      expect(cards[0].get('id')).toEqual(2);
+      expect(cards[1].get('id')).toEqual(3);
+      expect(cards[2].get('id')).toEqual(4);
+      expect(cards[3].get('id')).toEqual(5);
+      expect(cards[4].get('id')).toEqual(6);
     });
 
   });

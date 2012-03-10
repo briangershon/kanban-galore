@@ -2,7 +2,11 @@
 
 A Kanban implementation in JavaScript, using Backbone.js
 
-Kanban helps visualize work.
+Kanban helps you visualize your work.
+
+## To try it
+
+    # open index.html in browser
 
 ## How to run tests
 
