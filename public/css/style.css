@@ -21,16 +21,16 @@ header {
 }
 
 .lane {
-  margin: 20px auto 0 auto;
+  margin: 20px 4px 0 4px;
   background: #ddf;
   padding: 20px;
-  border: 2px solid #333;
+  border: 1px solid #eee;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);  
+  -moz-box-shadow: 0 0 .2em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .2em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .2em rgba(0, 0, 0, .8);  
 }
 
 .lane-header {
@@ -43,7 +43,7 @@ header {
 /*  height: 60px;*/
   padding: 10px;
   margin: 5px;
-  border: 1px dashed #333;
+  border: 2px solid #888;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
