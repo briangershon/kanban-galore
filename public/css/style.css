@@ -23,7 +23,7 @@ header {
 .lane {
   margin: 20px 4px 0 4px;
   background: #ddf;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #eee;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
