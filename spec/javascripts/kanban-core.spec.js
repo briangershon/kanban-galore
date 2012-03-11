@@ -60,8 +60,8 @@ describe('Kanban Core', function () {
 
     it('should update lane with new models reorder', function () {
       // simulate moving id 2 and 3 from lane 'ready' to 'done'
-      this.cards.updateLane('done', [2,3,4,5,6]);
-      this.cards.updateLane('ready', [1]);
+      this.cards.updateLane({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
+      this.cards.updateLane({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
 
       var cards = this.cards.inLane('ready');
       expect(cards.length).toEqual(1);

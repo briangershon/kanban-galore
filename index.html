@@ -37,10 +37,7 @@
   <script>
     $(function() {
       $(".lane").sortable({
-        connectWith: ".lane",
-        update: function(event, ui) {
-          // console.log('update lane_id', $(this).attr('id'), $(this).sortable('toArray').toString());
-        }
+        connectWith: ".lane"
       });
       $( ".lane" ).disableSelection();
     });

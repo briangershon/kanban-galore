@@ -20,11 +20,16 @@ kanban.Cards = Backbone.Collection.extend({
     return modelArray;
   },
   
-  updateLane: function (lane, idArray) {
+  updateLane: function (params) {
     var order = 1,
-      collection = this;
+      collection = this,
+      lane = params.lane,
+      prefix = params.prefix,
+      idArray = params.idArray;
+      
     _.each(idArray, function (id) {
-      var item = collection.get(id);
+      var idWithoutPrefix = id.slice(prefix.length);
+      var item = collection.get(idWithoutPrefix);
       item.set({lane: lane, order: order});
       order++;
     });
