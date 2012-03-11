@@ -11,7 +11,7 @@ kanban.Cards = Backbone.Collection.extend({
   },
 
   inLane: function (lane) {
-    modelArray =_.filter(this.models, function (item) {
+    modelArray = this.models.filter(function (item) {
       if (item.get('lane') === lane) {
         return true;
       }
@@ -33,6 +33,8 @@ kanban.Cards = Backbone.Collection.extend({
       item.set({lane: lane, order: order});
       order++;
     });
-    this.sort();
+    // 'silent: true' is critical so state of DOM doesn't change while sortupdate tries to run
+    //  otherwise drag updates are lost when DOM updates.
+    this.sort({silent: true});  
   }
 });

@@ -8,10 +8,10 @@ kanban.LaneView = Backbone.View.extend({
   initialize: function (options) {
     _.bindAll(this, 'sortUpdate', 'render');
     this.lane = options.lane;
+    this.collection.bind('add reset', this.render, this);
   },
   
   sortUpdate: function (event, ui) {
-    // console.log(this.lane, "updated to", this.$el.sortable('toArray'));
     this.collection.updateLane({lane: this.lane, prefix: 'card-', idArray: this.$el.sortable('toArray')});
   },
   

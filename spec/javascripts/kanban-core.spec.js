@@ -76,6 +76,17 @@ describe('Kanban Core', function () {
       expect(cards[4].get('id')).toEqual(6);
     });
 
+    it('should not fire reset event during sort so that DOM remains unchanged while completing drag/drop between columns', function () {
+      var resetEvent = jasmine.createSpy('Reset Event');
+      this.cards.bind('reset', resetEvent);
+
+      // simulate moving id 2 and 3 from lane 'ready' to 'done'
+      this.cards.updateLane({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
+      this.cards.updateLane({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
+
+      expect(resetEvent).not.toHaveBeenCalled();
+    });
+
   });
   
 });
