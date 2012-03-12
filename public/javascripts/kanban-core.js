@@ -26,8 +26,8 @@ kanban.Cards = Backbone.Collection.extend({
       lane = params.lane,
       idArray = params.idArray;
       
-    _.each(idArray, function (id) {
-      var item = collection.get(id);
+    _.each(idArray, function (cid) {
+      var item = collection.getByCid(cid);
       item.set({lane: lane, order: order});
       order++;
     });
@@ -50,21 +50,20 @@ kanban.Cards = Backbone.Collection.extend({
     var collection = this,
       lane = params.lane,
       title = params.title,
-      id_prefix = params.id_prefix,
-      min = 1,
-      max = 10000,
-      newId = Math.random() * (max - min) + min,  // TODO: temporary
       currentModels = _.map(collection.inLane(lane), function (model) {
-        return model.id;
-      });
-
+        return model.cid;
+      }),
+      newModel = new kanban.Card({lane: lane, title: title}),
+      newCID = newModel.cid;
+    
+    collection.add(newModel, {silent: true});
+    
     currentModels.reverse();
-    currentModels.push(newId);
+    currentModels.push(newCID);
     currentModels.reverse();
-    collection.add({id: newId, lane: lane, title: title}, {silent: true});
     this.updateLane({lane: lane, idArray: currentModels});
     collection.trigger('reset');
-    return newId;
+    return newCID;
   }
   
 });

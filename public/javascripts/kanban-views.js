@@ -24,7 +24,7 @@ kanban.LaneView = Backbone.View.extend({
       
     el.empty();
     _.each(this.collection.inLane(this.lane), function (model) {
-      el.append(template(model.toJSON()));
+      el.append(template({cid: model.cid, order: model.get('order'), title: model.get('title')}));
     });
   }
 });
@@ -40,6 +40,6 @@ kanban.AddCardView = Backbone.View.extend({
   },
   
   addNew: function () {
-    this.collection.addNew({lane: 'ready', id_prefix: 'card-', title: 'NEW CARD'});
+    this.collection.addNew({lane: 'ready', title: 'NEW CARD'});
   }
 });

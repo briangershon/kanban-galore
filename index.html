@@ -28,7 +28,7 @@
   <footer>Drag and drop Kanban cards between columns.</footer>
   
   <script id="card-template" type="text/html">
-    <div id="card-<%= id %>" class="card"><%= title %></div>
+    <div id="card-<%= cid %>" class="card" data-order="<%= order %>"><%= title %></div>
   </script>
   
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>

@@ -2,11 +2,7 @@ describe('Kanban Core', function () {
   
   describe('kanban.Card', function () {
     beforeEach(function () {
-      this.card = new kanban.Card({id: 1, order: 1, lane: 'ready', title: 'Card one'});
-    });
-
-    it('should have a lane field', function () {
-      expect(this.card.get('id')).toEqual(1);
+      this.card = new kanban.Card({order: 1, lane: 'ready', title: 'Card one'});
     });
 
     it('should have an order field', function () {
@@ -26,54 +22,60 @@ describe('Kanban Core', function () {
   describe('kanban.Cards', function () {
     beforeEach(function () {
       this.cards = new kanban.Cards([
-        {id: 1, order: 3, lane: 'ready'},
-        {id: 2, order: 2, lane: 'ready'},
-        {id: 3, order: 1, lane: 'ready'},
-        {id: 4, order: 3, lane: 'done'},
-        {id: 5, order: 2, lane: 'done'},
-        {id: 6, order: 1, lane: 'done'}
+        {title: "1", order: 3, lane: 'ready'},
+        {title: "2", order: 2, lane: 'ready'},
+        {title: "3", order: 1, lane: 'ready'},
+        {title: "4", order: 3, lane: 'done'},
+        {title: "5", order: 2, lane: 'done'},
+        {title: "6", order: 1, lane: 'done'}
       ]);
     });
   
     it('should be ordered by laneName', function () {
-      expect(this.cards.at(0).get('id')).toEqual(6);
-      expect(this.cards.at(1).get('id')).toEqual(5);
-      expect(this.cards.at(2).get('id')).toEqual(4);
-      expect(this.cards.at(3).get('id')).toEqual(3);
-      expect(this.cards.at(4).get('id')).toEqual(2);
-      expect(this.cards.at(5).get('id')).toEqual(1);
+      expect(this.cards.at(0).get('title')).toEqual("6");
+      expect(this.cards.at(1).get('title')).toEqual("5");
+      expect(this.cards.at(2).get('title')).toEqual("4");
+      expect(this.cards.at(3).get('title')).toEqual("3");
+      expect(this.cards.at(4).get('title')).toEqual("2");
+      expect(this.cards.at(5).get('title')).toEqual("1");
     });
     
     it('should filter by lane and be in correct order', function () {
       var cards = this.cards.inLane('ready');
       expect(cards.length).toEqual(3);
-      expect(cards[0].get('id')).toEqual(3);
-      expect(cards[1].get('id')).toEqual(2);
-      expect(cards[2].get('id')).toEqual(1);
+      expect(cards[0].get('title')).toEqual("3");
+      expect(cards[1].get('title')).toEqual("2");
+      expect(cards[2].get('title')).toEqual("1");
       
       cards = this.cards.inLane('done');
       expect(cards.length).toEqual(3);
-      expect(cards[0].get('id')).toEqual(6);
-      expect(cards[1].get('id')).toEqual(5);
-      expect(cards[2].get('id')).toEqual(4);
+      expect(cards[0].get('title')).toEqual("6");
+      expect(cards[1].get('title')).toEqual("5");
+      expect(cards[2].get('title')).toEqual("4");
     });
 
     it('should update lane with new models reorder', function () {
       // simulate moving id 2 and 3 from lane 'ready' to 'done'
-      this.cards.updateLaneWithDOMIds({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
-      this.cards.updateLaneWithDOMIds({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
+      var readyLane = this.cards.inLane('ready'),
+        doneLane = this.cards.inLane('done');
+      
+      doneLane.push(readyLane.pop());
+      doneLane.push(readyLane.pop());
+
+      this.cards.updateLane({lane: 'done' , idArray: doneLane});
+      this.cards.updateLane({lane: 'ready', idArray: readyLane});
 
       var cards = this.cards.inLane('ready');
       expect(cards.length).toEqual(1);
-      expect(cards[0].get('id')).toEqual(1);
+      expect(cards[0].get('title')).toEqual("3");
       
       cards = this.cards.inLane('done');
       expect(cards.length).toEqual(5);
-      expect(cards[0].get('id')).toEqual(2);
-      expect(cards[1].get('id')).toEqual(3);
-      expect(cards[2].get('id')).toEqual(4);
-      expect(cards[3].get('id')).toEqual(5);
-      expect(cards[4].get('id')).toEqual(6);
+      expect(cards[0].get('title')).toEqual("6");
+      expect(cards[1].get('title')).toEqual("5");
+      expect(cards[2].get('title')).toEqual("4");
+      expect(cards[3].get('title')).toEqual("1");
+      expect(cards[4].get('title')).toEqual("2");
     });
 
     it('should not fire reset event during sort so that DOM remains unchanged while completing drag/drop between columns', function () {
@@ -81,17 +83,23 @@ describe('Kanban Core', function () {
       this.cards.bind('reset', resetEvent);
 
       // simulate moving id 2 and 3 from lane 'ready' to 'done'
-      this.cards.updateLaneWithDOMIds({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
-      this.cards.updateLaneWithDOMIds({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
+      var readyLane = this.cards.inLane('ready'),
+        doneLane = this.cards.inLane('done');
+      
+      doneLane.push(readyLane.pop());
+      doneLane.push(readyLane.pop());
+      
+      this.cards.updateLane({lane: 'done', idArray: doneLane});
+      this.cards.updateLane({lane: 'ready', idArray: readyLane});
 
       expect(resetEvent).not.toHaveBeenCalled();
     });
     
     it('should add a new card to the top of the "ready" lane', function () {
-      var id = this.cards.addNew({lane: 'ready', id_prefix: 'card-', title: 'NEW CARD'})
+      var cid = this.cards.addNew({lane: 'ready', title: 'NEW CARD'})
       var readyCards = this.cards.inLane('ready');
       expect(readyCards.length).toEqual(4);
-      expect(readyCards[0].get('id')).toEqual(id);
+      expect(readyCards[0].cid).toEqual(cid);
     });
 
   });
