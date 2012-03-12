@@ -4,6 +4,7 @@ $(document).ready(function () {
   var ready = new kanban.LaneView({el: '#ready', collection: cards, lane: 'ready'});
   var doing = new kanban.LaneView({el: '#doing', collection: cards, lane: 'doing'});
   var done = new kanban.LaneView({el: '#done', collection: cards, lane: 'done'});
+  var addcardview = new kanban.AddCardView({el: "#addcard", collection: cards, lane: 'ready'});
   
   // sample data
   cards.reset([

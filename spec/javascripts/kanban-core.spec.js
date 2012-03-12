@@ -60,8 +60,8 @@ describe('Kanban Core', function () {
 
     it('should update lane with new models reorder', function () {
       // simulate moving id 2 and 3 from lane 'ready' to 'done'
-      this.cards.updateLane({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
-      this.cards.updateLane({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
+      this.cards.updateLaneWithDOMIds({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
+      this.cards.updateLaneWithDOMIds({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
 
       var cards = this.cards.inLane('ready');
       expect(cards.length).toEqual(1);
@@ -81,10 +81,17 @@ describe('Kanban Core', function () {
       this.cards.bind('reset', resetEvent);
 
       // simulate moving id 2 and 3 from lane 'ready' to 'done'
-      this.cards.updateLane({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
-      this.cards.updateLane({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
+      this.cards.updateLaneWithDOMIds({lane: 'done', prefix: 'card-', idArray: ['card-2','card-3','card-4','card-5','card-6']});
+      this.cards.updateLaneWithDOMIds({lane: 'ready', prefix: 'card-', idArray: ['card-1']});
 
       expect(resetEvent).not.toHaveBeenCalled();
+    });
+    
+    it('should add a new card to the top of the "ready" lane', function () {
+      var id = this.cards.addNew({lane: 'ready', id_prefix: 'card-', title: 'NEW CARD'})
+      var readyCards = this.cards.inLane('ready');
+      expect(readyCards.length).toEqual(4);
+      expect(readyCards[0].get('id')).toEqual(id);
     });
 
   });

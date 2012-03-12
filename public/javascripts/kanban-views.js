@@ -12,7 +12,10 @@ kanban.LaneView = Backbone.View.extend({
   },
   
   sortUpdate: function (event, ui) {
-    this.collection.updateLane({lane: this.lane, prefix: 'card-', idArray: this.$el.sortable('toArray')});
+    this.collection.updateLaneWithDOMIds({
+      lane: this.lane,
+      prefix: 'card-',
+      idArray: this.$el.sortable('toArray')});
   },
   
   render: function () {
@@ -23,5 +26,20 @@ kanban.LaneView = Backbone.View.extend({
     _.each(this.collection.inLane(this.lane), function (model) {
       el.append(template(model.toJSON()));
     });
+  }
+});
+
+kanban.AddCardView = Backbone.View.extend({
+  events: {
+    click: "addNew"
+  },
+  
+  initialize: function (options) {
+    _.bindAll(this, 'addNew');
+    this.lane = options.lane;
+  },
+  
+  addNew: function () {
+    this.collection.addNew({lane: 'ready', id_prefix: 'card-', title: 'NEW CARD'});
   }
 });
