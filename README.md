@@ -14,11 +14,11 @@ This implementation is in JavaScript, using Backbone.js and jQuery UI.
 
 * Client-side Backbone.js models, collections and views. Unit tested.
 
+* Add new cards.
+
 ## Roadmap of Upcoming Features
 
-* Ability to add new cards. Currently uses sample data.
-
-* Persist data. Plan is to add local storage first, then a server-based version (node.js and database).
+* See [Issue Tracker](https://github.com/briangershon/kanban-galore/issues).
 
 ## To try it
 
