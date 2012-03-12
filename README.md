@@ -4,15 +4,15 @@ Kanban helps you visualize your work, and limit the number of items that are in-
 
 This implementation is in JavaScript, using Backbone.js and jQuery UI.
 
+## Screenshot
+
+![Screenshot of Kanban Galore](https://github.com/briangershon/kanban-galore/raw/master/screenshot.png)
+
 ## Current features
 
 * Drag and Drop UI for ordering cards in lanes and moving cards between lanes.
 
 * Client-side Backbone.js models, collections and views. Unit tested.
-
-## Screenshot
-
-![Screenshot of Kanban Galore](https://github.com/briangershon/kanban-galore/raw/master/screenshot.png)
 
 ## Roadmap of Upcoming Features
 
@@ -25,7 +25,7 @@ This implementation is in JavaScript, using Backbone.js and jQuery UI.
     # clone repository locally
     # open index.html in browser
 
-## Are we running ok on Travis CI?
+## Are all tests running ok? (on Travis CI)
 
 [![Build Status](https://secure.travis-ci.org/briangershon/kanban-galore.png?branch=master)](http://travis-ci.org/briangershon/kanban-galore)
 
