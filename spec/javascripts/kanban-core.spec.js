@@ -54,7 +54,7 @@ describe('Kanban Core', function () {
       expect(cards[2].get('title')).toEqual("4");
     });
 
-    it('should update lane with new models reorder', function () {
+    it('should update lane with new model order', function () {
       // simulate moving id 2 and 3 from lane 'ready' to 'done'
       var readyLane = this.cards.inLane('ready'),
         doneLane = this.cards.inLane('done');
@@ -76,6 +76,36 @@ describe('Kanban Core', function () {
       expect(cards[2].get('title')).toEqual("4");
       expect(cards[3].get('title')).toEqual("1");
       expect(cards[4].get('title')).toEqual("2");
+    });
+    
+    it('should sort properly when order is more than single digits', function () {
+      var lotsOfCards = new kanban.Cards([
+        {title: "1", order: 11, lane: 'done'},
+        {title: "2", order: 10, lane: 'done'},
+        {title: "3", order: 9, lane: 'done'},
+        {title: "4", order: 8, lane: 'done'},
+        {title: "5", order: 7, lane: 'done'},
+        {title: "6", order: 6, lane: 'done'},
+        {title: "7", order: 5, lane: 'done'},
+        {title: "8", order: 4, lane: 'done'},
+        {title: "9", order: 3, lane: 'done'},
+        {title: "10", order: 2, lane: 'done'},
+        {title: "11", order: 1, lane: 'done'}
+      ]);
+      
+      var cards = lotsOfCards.inLane('done');
+      expect(cards.length).toEqual(11);
+      expect(cards[0].get('title')).toEqual("11");
+      expect(cards[1].get('title')).toEqual("10");
+      expect(cards[2].get('title')).toEqual("9");
+      expect(cards[3].get('title')).toEqual("8");
+      expect(cards[4].get('title')).toEqual("7");
+      expect(cards[5].get('title')).toEqual("6");
+      expect(cards[6].get('title')).toEqual("5");
+      expect(cards[7].get('title')).toEqual("4");
+      expect(cards[8].get('title')).toEqual("3");
+      expect(cards[9].get('title')).toEqual("2");
+      expect(cards[10].get('title')).toEqual("1");
     });
 
     it('should not fire reset event during sort so that DOM remains unchanged while completing drag/drop between columns', function () {

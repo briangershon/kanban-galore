@@ -16,7 +16,7 @@ src_files:
     - public/javascripts/backbone.js
     - public/javascripts/kanban.js
     - public/javascripts/kanban-core.js
-    - public/javascripts/kanban-views.js
+    # - public/javascripts/kanban-views.js
 
 # stylesheets
 #

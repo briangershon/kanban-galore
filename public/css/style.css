@@ -3,6 +3,10 @@ header {
   padding: 10px;
 }
 
+#addcard {
+  margin: 0 10px 10px 10px;
+}
+
 .column {
   width: 270px;
   float: left;

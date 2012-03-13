@@ -6,8 +6,19 @@ kanban.Card = Backbone.Model.extend({
 
 kanban.Cards = Backbone.Collection.extend({
   model: kanban.Card,
+  
+  zeroFill: function zeroFill (number, width) {
+    // zeroFill from http://stackoverflow.com/questions/1267283/how-can-i-create-a-zerofilled-value-using-javascript
+    width -= number.toString().length;
+    if ( width > 0 )
+    {
+      return new Array( width + (/\./.test(number) ? 2 : 1) ).join('0') + number;
+    }
+    return number;
+  },
+  
   comparator: function (card) {
-    return card.get('lane') + card.get("order");
+    return card.get('lane') + this.zeroFill(card.get("order"), 5);
   },
 
   inLane: function (lane) {
@@ -53,7 +64,7 @@ kanban.Cards = Backbone.Collection.extend({
       currentModels = _.map(collection.inLane(lane), function (model) {
         return model.cid;
       }),
-      newModel = new kanban.Card({lane: lane, title: title}),
+      newModel = new kanban.Card({lane: lane, title: title, order: 0}),
       newCID = newModel.cid;
     
     collection.add(newModel, {silent: true});
